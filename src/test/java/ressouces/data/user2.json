@@ -1,0 +1,9 @@
+{
+  "email": "pmu.user2@test.com",
+  "username": "PmuUser2",
+  "password": "PmuPwUser2",
+  "name": {
+    "firstname": "Jon",
+    "lastname": "Jones"
+  }
+}

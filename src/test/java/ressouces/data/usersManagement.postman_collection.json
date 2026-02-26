@@ -1,0 +1,144 @@
+{
+  "info": {
+    "_postman_id": "408c676b-bd39-426d-9731-5b6fbaf06b28",
+    "name": "usersManagement",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52261247",
+    "_collection_link": "https://go.postman.co/collection/52261247-408c676b-bd39-426d-9731-5b6fbaf06b28?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "POST - Create user1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200 or 201\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+              "});",
+              "",
+              "var jsonData = pm.response.json();",
+              "if (jsonData.id) {",
+              "    pm.environment.set(\"userId\", jsonData.id);",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"pmu.user1@test.com\",\n  \"username\": \"PmuUser1\",\n  \"password\": \"PmuPWuser1\",\n  \"name\": {\n    \"firstname\": \"alex\",\n    \"lastname\": \"pereira\"\n  }\n}\n"
+        },
+        "url": {
+          "raw": "https://fakestoreapi.com/users",
+          "protocol": "https",
+          "host": [
+            "fakestoreapi",
+            "com"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST - Create user2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200 or 201\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+              "});",
+              "",
+              "var jsonData = pm.response.json();",
+              "if (jsonData.id) {",
+              "    pm.environment.set(\"userId\", jsonData.id);",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"pmu.user2@test.com\",\n  \"username\": \"PmuUser2\",\n  \"password\": \"PmuPwUser2\",\n  \"name\": {\n    \"firstname\": \"Jon\",\n    \"lastname\": \"Jones\"\n  }\n}\n"
+        },
+        "url": {
+          "raw": "https://fakestoreapi.com/users",
+          "protocol": "https",
+          "host": [
+            "fakestoreapi",
+            "com"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - Get user by id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"User id matches\", function () {",
+              "    pm.expect(pm.response.json().id).to.eql(parseInt(pm.environment.get(\"userId\")));",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://fakestoreapi.com/users/{{userId}}",
+          "protocol": "https",
+          "host": [
+            "fakestoreapi",
+            "com"
+          ],
+          "path": [
+            "users",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

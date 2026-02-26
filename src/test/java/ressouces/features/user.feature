@@ -1,15 +1,21 @@
 Feature: User management
 
 
-  Scenario: Get a user using ID
+  Scenario Outline: Get a user using ID
     Given I check the API status 200
-    Then I get the user by id 1
+    Then I get the user by id <id>
+    
+    Examples:
+        #| id |
+        #| 1  |
+        #| 2  |
 
-  Scenario: Create a user using
+  Scenario Outline: Create a user using
     Given I check the API status 200
-# to do #    Then I create the user from "fileName"
-
-
-
-
+    Then I create the user from "<fileName>"
+    
+    Examples:
+        | fileName          |
+        | user1        |
+        | user2        |
 

@@ -5,6 +5,9 @@ import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,8 +36,27 @@ public class UserSteps {
     public void loadUserPayload(String jsonFileName) throws IOException {
         File jsonFile = new File("src/test/java/ressouces/data/"+jsonFileName+".json");
         String json = new String(Files.readAllBytes(jsonFile.toPath()));
-
-        // to do ...
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        
+        HttpEntity<String> requestEntity = new HttpEntity<>(json, headers);
+        
+        RestTemplate restTemplate = new RestTemplate();
+        
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity(baseUrl, requestEntity, String.class);
+        
+        assertTrue("Le statut HTTP doit être 200 ou 201", responseEntity.getStatusCode() == HttpStatus.OK
+                || responseEntity.getStatusCode() == HttpStatus.CREATED
+        );
+        
+        String responseBody = responseEntity.getBody();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode rootNode = mapper.readTree(responseBody);
+        
+        assertTrue("La réponse doit contenir un champ 'id'", rootNode.has("id"));
+        assertNotNull("L'id ne doit pas être null", rootNode.get("id").asText());
+        
     }
 
 
