@@ -6,7 +6,7 @@ Projet de tests automatisés pour l'API :
 
 https://fakestoreapi.com/users
 
-Ce projet a pour objectif de tester la création d’utilisateurs via des fichiers JSON en utilisant une approche BDD avec Cucumber.
+Ce projet a pour objectif de tester la gestion d’utilisateurs via des fichiers JSON en utilisant une approche BDD avec Cucumber.
 
 Les tests permettent de :
 
